@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Camp.Mapping.Data", "Camp.Mapping.Data\Camp.Mapping.Data.csproj", "{31957E1F-8D0B-4A85-B2B2-5841D8B30A45}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Camp.Mapping.Web", "Camp.Mapping.Web\Camp.Mapping.Web.csproj", "{563D62B4-2CA1-4842-8E87-81B360B403C8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{31957E1F-8D0B-4A85-B2B2-5841D8B30A45}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31957E1F-8D0B-4A85-B2B2-5841D8B30A45}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31957E1F-8D0B-4A85-B2B2-5841D8B30A45}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31957E1F-8D0B-4A85-B2B2-5841D8B30A45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{563D62B4-2CA1-4842-8E87-81B360B403C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{563D62B4-2CA1-4842-8E87-81B360B403C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{563D62B4-2CA1-4842-8E87-81B360B403C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{563D62B4-2CA1-4842-8E87-81B360B403C8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3999F6A4-72CA-4196-9E31-D4689C5442D8}
+	EndGlobalSection
+EndGlobal
