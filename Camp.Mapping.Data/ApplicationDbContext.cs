@@ -10,5 +10,7 @@ namespace Camp.Mapping.Data
             : base(options)
         {
         }
+
+        public DbSet<PostModel> Posts { get; set; }
     }
 }

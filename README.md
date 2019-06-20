@@ -9,3 +9,6 @@ Some changes have been applied to meet real world requirements:
 
 ---
 
+Show case:
+
+1. CRUD Posts for authorized users.
