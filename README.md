@@ -2,7 +2,7 @@ This is an ASP.NET Core web application created by the latest Visual Studio temp
 
 Some changes have been applied to meet real world requirements:
 * The data models and `DbContext` classes are extracted into a separate class library.
-* A custom user and role class has been provided to allow an `int` primary key.
+* A custom user and role class has been provided to allow an `int` primary key and enhance them with some more properties.
 
 (For more informations about setup read [these steps](Camp.Mapping.Data/README.md).)
 

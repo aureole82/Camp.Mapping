@@ -1,0 +1,19 @@
+﻿@page
+@model VerifyEmailModel
+@{
+    ViewData["Title"] = "Verify Email";
+    ViewData["ActivePage"] = ManageNavPages.VerifyEmail;
+}
+<h4>@ViewData["Title"]</h4>
+<partial name="_StatusMessage" for="StatusMessage" />
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" class="form-control" disabled="disabled"/>
+            </div>
+            <button id="email-verification" type="submit" class="btn btn-secondary">Send verification email</button>
+        </form>
+    </div>
+</div>
