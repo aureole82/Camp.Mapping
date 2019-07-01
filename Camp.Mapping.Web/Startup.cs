@@ -1,5 +1,8 @@
-﻿using Camp.Mapping.Data;
+﻿using AutoMapper;
+using AutoMapper.Configuration;
+using Camp.Mapping.Data;
 using Camp.Mapping.Data.Models;
+using Camp.Mapping.Web.ViewModels;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
@@ -9,6 +12,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
+using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
 namespace Camp.Mapping.Web
 {
@@ -35,6 +40,22 @@ namespace Camp.Mapping.Web
                 .AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
                 );
+
+            // AutoMapper.
+            services
+                .Configure<MapperConfigurationExpression>(config =>
+                {
+                    config.CreateMap<PostModel, PostViewModel>()
+                        .ForMember(destination => destination.CreationTimestamp,
+                            options => options.MapFrom(source => $"{source.Created:g}"))
+                        ;
+                })
+                .AddSingleton(provider =>
+                    new MapperConfiguration(provider.GetService<IOptions<MapperConfigurationExpression>>().Value)
+                        .CreateMapper()
+                )
+                ;
+
             services
                 //.AddDefaultIdentity<IdentityUser>() // Don't use default IdentityUser and all services.
                 .AddIdentity<UserModel, RoleModel>() // Use UserModel → IdentityUser<int> and RoleModel → IdentityRole<int>.

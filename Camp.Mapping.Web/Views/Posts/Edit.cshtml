@@ -1,4 +1,4 @@
-﻿@model Camp.Mapping.Data.Models.PostModel
+﻿@model Camp.Mapping.Web.ViewModels.PostViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,21 +12,19 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
             <div class="form-group">
-                <label asp-for="Subject" class="control-label"></label>
+                <label asp-for="Subject"></label>
                 <input asp-for="Subject" class="form-control" />
                 <span asp-validation-for="Subject" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Body" class="control-label"></label>
+                <label asp-for="Body"></label>
                 <textarea asp-for="Body" class="form-control"></textarea>
                 <span asp-validation-for="Body" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Created" class="control-label"></label>
-                <input asp-for="Created" class="form-control" readonly="readonly" />
-                <span asp-validation-for="Created" class="text-danger"></span>
+                <label asp-for="CreationTimestamp"></label>
+                <input asp-for="CreationTimestamp" class="form-control" readonly="readonly" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

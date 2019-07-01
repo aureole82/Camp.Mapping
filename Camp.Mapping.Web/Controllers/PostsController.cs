@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Camp.Mapping.Data;
 using Camp.Mapping.Data.Models;
+using Camp.Mapping.Web.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,10 +16,12 @@ namespace Camp.Mapping.Web.Controllers
     public class PostsController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IMapper _mapper;
 
-        public PostsController(ApplicationDbContext context)
+        public PostsController(ApplicationDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         // GET: Posts
@@ -27,7 +31,6 @@ namespace Camp.Mapping.Web.Controllers
 
                 // HACK: Full join with author table just to display user name.
                 .Include(model => model.Author)
-
                 .OrderByDescending(model => model.Created)
                 .ToListAsync());
         }
@@ -39,7 +42,6 @@ namespace Camp.Mapping.Web.Controllers
 
                 // HACK: Full join with author table just to display user name.
                 .Include(model => model.Author)
-
                 .FirstOrDefaultAsync(model => model.Id == id);
 
             if (post == null)
@@ -77,61 +79,33 @@ namespace Camp.Mapping.Web.Controllers
         }
 
         // GET: Posts/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(int id)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var postModel = await _context.Posts.FindAsync(id);
             if (postModel == null)
             {
                 return NotFound();
             }
 
-            return View(postModel);
+            return View(_mapper.Map<PostViewModel>(postModel));
         }
 
         // POST: Posts/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Subject,Body")] PostModel post)
+        public async Task<IActionResult> Edit(int id, PostViewModel viewModel)
         {
-            // HACK: Why 2 Ids? Why to check them?
-            if (id != post.Id)
-            {
+            var model = await _context.Posts.FindAsync(id);
+            if (model == null)
                 return NotFound();
-            }
 
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(post);
+            if (!ModelState.IsValid)
+                return View(viewModel);
 
-                    // HACK: Don't change author and creation date.
-                    _context.Entry(post).Property(model => model.AuthorId).IsModified = false;
-                    _context.Entry(post).Property(model => model.Created).IsModified = false;
+            _context.Entry(model).CurrentValues.SetValues(viewModel);
+            await _context.SaveChangesAsync();
 
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!_context.Posts.Any(model => model.Id == post.Id))
-                    {
-                        return NotFound();
-                    }
-
-                    throw;
-                }
-
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(post);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Posts/Delete/5
@@ -141,7 +115,6 @@ namespace Camp.Mapping.Web.Controllers
 
                 // HACK: Full join with author table just to display user name.
                 .Include(model => model.Author)
-
                 .FirstOrDefaultAsync(model => model.Id == id);
 
             if (post == null)
